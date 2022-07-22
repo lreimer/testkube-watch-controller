@@ -20,4 +20,4 @@ docker: build
 	@docker build -t lreimer/$(NAME)-controller .
 
 releaser:
-	@goreleaser build --snapshot --rm-dist
+	@goreleaser --rm-dist
