@@ -1,0 +1,4 @@
+namespace: ""
+resource:
+  deployment: true
+  services: false

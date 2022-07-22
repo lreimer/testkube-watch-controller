@@ -8,7 +8,7 @@ build:
 	@go build -o $(NAME) -ldflags="-s -w -X main.version=$(VERSION)"
 
 run:
-	@go run main.go
+	@TKW_HOME=$(PWD)/examples go run main.go
 
 test:
 	@go test -v
