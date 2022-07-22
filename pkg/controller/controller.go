@@ -5,6 +5,7 @@ import (
 
 	"github.com/lreimer/testkube-watch-controller/config"
 	"github.com/lreimer/testkube-watch-controller/pkg/client"
+	"github.com/lreimer/testkube-watch-controller/pkg/utils"
 	"github.com/sirupsen/logrus"
 	apps_v1 "k8s.io/api/apps/v1"
 	api_v1 "k8s.io/api/core/v1"
@@ -12,22 +13,16 @@ import (
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/rest"
 )
 
 func Start(conf *config.Config) {
-	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-	configOverrides := &clientcmd.ConfigOverrides{}
-	kubeConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, configOverrides)
+	var kubeClient kubernetes.Interface
 
-	config, err := kubeConfig.ClientConfig()
-	if err != nil {
-		logrus.Fatal(err)
-	}
-
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		logrus.Fatal(err)
+	if _, err := rest.InClusterConfig(); err != nil {
+		kubeClient = utils.GetClientOutOfCluster()
+	} else {
+		kubeClient = utils.GetClient()
 	}
 
 	l := map[string]string{"testkube.io/enabled": "true"}
@@ -37,7 +32,7 @@ func Start(conf *config.Config) {
 
 	if conf.Resource.Deployment {
 		logrus.Info("Watching for Deployment changes ...")
-		watcher, err := clientset.AppsV1().Deployments(conf.Namespace).Watch(context.TODO(), listOptions)
+		watcher, err := kubeClient.AppsV1().Deployments(conf.Namespace).Watch(context.TODO(), listOptions)
 		if err != nil {
 			logrus.Error(err)
 		}
@@ -59,7 +54,7 @@ func Start(conf *config.Config) {
 
 	if conf.Resource.Services {
 		logrus.Info("Watching for Service changes ...")
-		watcher, err := clientset.CoreV1().Services(conf.Namespace).Watch(context.TODO(), listOptions)
+		watcher, err := kubeClient.CoreV1().Services(conf.Namespace).Watch(context.TODO(), listOptions)
 		if err != nil {
 			logrus.Error(err)
 		}
