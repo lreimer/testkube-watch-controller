@@ -19,5 +19,5 @@ clean:
 docker: build
 	@docker build -t lreimer/$(NAME)-controller .
 
-releaser:
+release:
 	@goreleaser --rm-dist
