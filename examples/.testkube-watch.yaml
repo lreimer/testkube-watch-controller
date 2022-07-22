@@ -1,4 +1,5 @@
 namespace: ""
+testkube_api_server: http://localhost:18088
 resource:
   deployment: true
-  services: false
+  services: true

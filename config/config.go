@@ -19,12 +19,15 @@ type Resource struct {
 
 // Config struct contains kubewatch configuration
 type Config struct {
-	// Resources to watch
-	Resource Resource `json:"resource"`
-
 	// For watching specific namespace, leave it empty for watching all.
 	// this config is ignored when watching namespaces
 	Namespace string `json:"namespace,omitempty"`
+
+	// the address of the API server
+	TestkubeApiServer string `json:"testkube_api_server" yaml:"testkube_api_server"`
+
+	// Resources to watch
+	Resource Resource `json:"resource"`
 }
 
 // New creates new config object

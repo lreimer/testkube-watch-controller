@@ -9,7 +9,8 @@ on change events the controller will call the Testkube API server to trigger tes
 ## Usage
 
 ```bash
-kubectl testkube create test --file examples/nginx-test.json --name nginx-curl-test --type "curl/test"
+kubectl testkube create test --file examples/nginx-curl-test.json --name nginx-curl-test --type "curl/test"
+kubectl testkube create testsuite --file examples/nginx-curl-testsuite.json
 
 kubectl apply -f examples/nginx-service.yaml
 kubectl apply -f examples/nginx-deployment.yaml

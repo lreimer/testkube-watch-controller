@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/lreimer/testkube-watch-controller/config"
 	"github.com/lreimer/testkube-watch-controller/pkg/controller"
 	"github.com/sirupsen/logrus"
@@ -18,6 +20,7 @@ var rootCmd = &cobra.Command{
 			logrus.Fatal(err)
 		}
 		controller.Start(config)
+		fmt.Scanln()
 	},
 }
 

@@ -4,9 +4,10 @@ metadata:
   name: nginx-service
   labels:
     app.kubernetes.io/name: nginx
-    testkube.io/enabled: "false"
+    testkube.io/enabled: "true"
   annotations:
-    testkube.io/test: nginx-curl-test
+    testkube.io/test-suite: nginx-curl-testsuite
+    testkube.io/namespace: testkube
 spec:
   type: ClusterIP
   ports:

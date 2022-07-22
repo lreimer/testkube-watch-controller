@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
-    app.kubernetes.io/name: nginx
+    app.kubernetes.io/name: nginx2
     testkube.io/enabled: "true"
   annotations:
     testkube.io/test: nginx-curl-test

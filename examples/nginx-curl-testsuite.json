@@ -1,0 +1,9 @@
+{
+    "name": "nginx-curl-testsuite",
+    "description": "Testkube test suite for Nginx",
+    "steps": [
+        {"execute": {"name": "nginx-curl-test"}},
+        {"delay": {"duration": 1000}},
+        {"execute": {"name": "nginx-curl-test"}}
+    ]
+}
