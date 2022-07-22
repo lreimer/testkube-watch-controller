@@ -18,7 +18,8 @@ spec:
         image: testkube-watch-controller
         volumeMounts:
           - name: testkube-watch
-            mountPath: /
+            mountPath: /.testkube-watch.yaml
+            subPath: .testkube-watch.yaml
         resources:          
           requests: 
             memory: "64Mi"
