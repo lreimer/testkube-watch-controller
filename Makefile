@@ -4,7 +4,6 @@ VERSION=v1.0.0
 .PHONY: build run test clean
 
 build:
-	# omit the symbol table, debug information and the DWARF table
 	@go build -o $(NAME) -ldflags="-s -w -X main.version=$(VERSION)"
 
 run:
@@ -17,5 +16,8 @@ clean:
 	@go clean
 	@rm -f $(NAME)
 
+docker: build
+	@docker build -t lreimer/$(NAME)-controller .
+
 releaser:
-	@goreleaser build --snapshot --skip-publish --rm-dist
+	@goreleaser build --snapshot --rm-dist

@@ -28,7 +28,7 @@ dockers:
       - lreimer/testkube-watch-controller:latest
       - lreimer/testkube-watch-controller:v{{ .Major }}
       - lreimer/testkube-watch-controller:{{ .Version }}
-    skip_push: true
+    skip_push: false
     dockerfile: Dockerfile
     goos: linux
     goarch: amd64

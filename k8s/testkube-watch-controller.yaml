@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testkube-watch-controller
+  namespace: testkube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testkube-watch-controller
+  template:
+    metadata:
+      labels:
+        app: testkube-watch-controller
+    spec:
+      containers:
+      - name: testkube-watch-controller
+        image: lreimer/testkube-watch-controller
+        volumeMounts:
+          - name: testkube-watch
+            mountPath: /
+        resources:          
+          requests: 
+            memory: "64Mi"
+            cpu: 100m
+          limits:
+            memory: "64Mi"
+            cpu: 100m
+      volumes:
+        - name: testkube-watch
+          configMap:
+            name: testkube-watch
