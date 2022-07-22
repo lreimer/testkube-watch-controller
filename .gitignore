@@ -15,3 +15,7 @@
 # vendor/
 
 .dccache
+
+testkube-watch-controller
+testkube-watch
+dist/

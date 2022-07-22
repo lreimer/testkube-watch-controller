@@ -12,8 +12,8 @@ const testkubeWatchConfigFile = ".testkube-watch.yaml"
 
 var cfgFile string
 
-var RootCmd = &cobra.Command{
-	Use:   "testkube-watch-controller",
+var rootCmd = &cobra.Command{
+	Use:   "testkube-watch",
 	Short: "Run Testkube test on Kubernetes events",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -22,7 +22,7 @@ var RootCmd = &cobra.Command{
 }
 
 func Execute() {
-	if err := RootCmd.Execute(); err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(-1)
 	}
@@ -32,12 +32,12 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Disable Help subcommand
-	RootCmd.SetHelpCommand(&cobra.Command{
+	rootCmd.SetHelpCommand(&cobra.Command{
 		Use:    "no-help",
 		Hidden: true,
 	})
 
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.testkube-watch.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.testkube-watch.yaml)")
 }
 
 func initConfig() {
