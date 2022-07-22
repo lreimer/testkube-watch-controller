@@ -1,0 +1,7 @@
+{
+    "command": [
+      "curl",
+      "http://nginx-service.default.svc.cluster.local:8080/"
+    ],
+    "expected_status": "200"
+}
