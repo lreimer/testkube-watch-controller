@@ -1,10 +1,10 @@
 NAME=testkube-watch
-VERSION=v1.0.0
+VERSION=v1.0.5
 
-.PHONY: build run test clean
+.PHONY: run test clean
 
 build:
-	@go build -o $(NAME) -ldflags="-s -w -X main.version=$(VERSION)"
+	@goreleaser build --single-target --snapshot --rm-dist
 
 run:
 	@TKW_HOME=$(PWD)/examples go run main.go
@@ -15,9 +15,10 @@ test:
 clean:
 	@go clean
 	@rm -f $(NAME)
+	@rm -rf dist/
 
-docker: build
-	@docker build -t lreimer/$(NAME)-controller .
+docker:
+	@docker build -t lreimer/$(NAME)-controller --build-arg version=$(VERSION) .
 
 release:
 	@goreleaser --rm-dist

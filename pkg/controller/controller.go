@@ -34,7 +34,7 @@ func Start(conf *config.Config) {
 		logrus.Info("Watching for Deployment changes ...")
 		watcher, err := kubeClient.AppsV1().Deployments(conf.Namespace).Watch(context.TODO(), listOptions)
 		if err != nil {
-			logrus.Error(err)
+			logrus.Fatalf("Unable to watch for deployment changes %s", err)
 		}
 		go func() {
 			ch := watcher.ResultChan()
@@ -56,7 +56,7 @@ func Start(conf *config.Config) {
 		logrus.Info("Watching for Service changes ...")
 		watcher, err := kubeClient.CoreV1().Services(conf.Namespace).Watch(context.TODO(), listOptions)
 		if err != nil {
-			logrus.Error(err)
+			logrus.Fatalf("Unable to watch for service changes %s", err)
 		}
 		go func() {
 			ch := watcher.ResultChan()

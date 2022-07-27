@@ -6,10 +6,10 @@ namespace: testkube
 resources:
   - testkube-watch-controller.yaml
 
-images:
-  - name: testkube-watch-controller
-    newName: lreimer/testkube-watch-controller
-    newTag: latest
+# images:
+#  - name: testkube-watch-controller
+#    newName: lreimer/testkube-watch-controller
+#    newTag: latest
 
 configMapGenerator:
   - name: testkube-watch

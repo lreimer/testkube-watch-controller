@@ -29,7 +29,7 @@ dockers:
       - lreimer/testkube-watch-controller:v{{ .Major }}
       - lreimer/testkube-watch-controller:{{ .Version }}
     skip_push: false
-    dockerfile: Dockerfile
+    dockerfile: Dockerfile.goreleaser
     goos: linux
     goarch: amd64
 checksum:

@@ -1,7 +1,9 @@
 package cmd
 
 import (
-	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/lreimer/testkube-watch-controller/config"
 	"github.com/lreimer/testkube-watch-controller/pkg/controller"
@@ -20,7 +22,11 @@ var rootCmd = &cobra.Command{
 			logrus.Fatal(err)
 		}
 		controller.Start(config)
-		fmt.Scanln()
+
+		sigterm := make(chan os.Signal, 1)
+		signal.Notify(sigterm, syscall.SIGTERM)
+		signal.Notify(sigterm, syscall.SIGINT)
+		<-sigterm
 	},
 }
 
@@ -42,10 +48,18 @@ func init() {
 
 func initConfig() {
 	viper.SetConfigFile(config.DefaultConfigFileName)
-	viper.SetConfigName("testkube-watch") // name of config file (without extension)
-	viper.AddConfigPath("$TKW_HOME")      // adding $TKW_HOME directory as first search path
-	viper.AddConfigPath("$HOME")          // adding $HOME directory as second search path
-	viper.AutomaticEnv()                  // read in environment variables that match
+	// name of config file (without extension)
+	viper.SetConfigName("testkube-watch")
+	// adding $TKW_HOME directory as config search path
+	if value, found := os.LookupEnv("TKW_HOME"); found {
+		viper.AddConfigPath(value)
+	}
+	// adding $HOME directory as config search path
+	if value, found := os.LookupEnv("HOME"); found {
+		viper.AddConfigPath(value)
+	}
+	// read in environment variables that match
+	viper.AutomaticEnv()
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
