@@ -6,5 +6,5 @@ local_resource('testkube-watch-controller-build',
     dir='.', deps=['./main.go', './go.mod', './cmd/', './config/', './pkg/', './utils/'])
 
 # to disable push with rancher desktop we need to use custom_build instead of docker_build
-custom_build('lreimer/testkube-watch-controller', 'docker build -t $EXPECTED_REF .', ['./'], disable_push=True)
+custom_build('lreimer/testkube-watch-controller', 'docker build -t $EXPECTED_REF .', ['./Dockerfile'], disable_push=True)
 k8s_yaml(kustomize('./k8s/'))

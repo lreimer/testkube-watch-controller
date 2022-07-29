@@ -23,15 +23,6 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
-dockers:
-  - image_templates:
-      - lreimer/testkube-watch-controller:latest
-      - lreimer/testkube-watch-controller:v{{ .Major }}
-      - lreimer/testkube-watch-controller:{{ .Version }}
-    skip_push: false
-    dockerfile: Dockerfile.goreleaser
-    goos: linux
-    goarch: amd64
 checksum:
   name_template: 'checksums.txt'
 snapshot:

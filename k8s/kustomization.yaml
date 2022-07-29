@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: testkube
 
 resources:
+  - testkube-watch-rbac.yaml
   - testkube-watch-controller.yaml
 
 # images:

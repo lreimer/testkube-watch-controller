@@ -13,6 +13,7 @@ spec:
       labels:
         app: testkube-watch-controller
     spec:
+      serviceAccountName: testkube-watch-controller
       containers:
       - name: testkube-watch-controller
         image: lreimer/testkube-watch-controller

@@ -1,5 +1,5 @@
 namespace: "default"
 testkube_api_server: http://testkube-api-server.testkube.svc.cluster.local:8088
 resource:
-  deployment: false
+  deployment: true
   services: true

@@ -66,6 +66,9 @@ func Start(conf *config.Config) {
 					logrus.Errorf("Unexpected type %s", event.Object)
 				}
 				switch event.Type {
+				case watch.Added:
+					logrus.Infof("Service %s added. Processing annotations.", s.Name)
+					processTestkubeAnnotations(conf, s.Annotations)
 				case watch.Modified:
 					logrus.Infof("Service %s modified. Processing annotations.", s.Name)
 					processTestkubeAnnotations(conf, s.Annotations)
